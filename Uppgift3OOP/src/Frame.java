@@ -25,13 +25,20 @@ public class Frame extends JFrame implements ActionListener {
 		setLocation(900,400);
 		
 		buttonPanel.add(newGame); buttonPanel.add(endGame);
+		endGame.addActionListener(this);
+		newGame.addActionListener(this);
+		
 		setVisible(true);
 		setDefaultCloseOperation(3);
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == endGame)
+			System.exit(0);
+		else {
+			System.out.println("hmm vi får fixa något här senare :D");
+		}
 		
 	}
 }
