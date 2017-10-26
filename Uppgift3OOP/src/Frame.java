@@ -21,9 +21,12 @@ public class Frame extends JFrame implements ActionListener {
 		setLayout(new BorderLayout());
 		add(gamePanel, BorderLayout.NORTH);
 		add(buttonPanel, BorderLayout.SOUTH);
+		setSize(600,600);
+		setLocation(900,400);
 		
 		buttonPanel.add(newGame); buttonPanel.add(endGame);
-		
+		setVisible(true);
+		setDefaultCloseOperation(3);
 	}
 
 	@Override
