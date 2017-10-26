@@ -4,7 +4,7 @@ public class Button {
 	Button(){
 
 		System.out.println("Hej Richard");
-		//Hej
+		//Hej då
 
 		
 		System.out.println("Richard testar branch1");
