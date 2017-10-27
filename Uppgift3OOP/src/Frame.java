@@ -34,11 +34,11 @@ public class Frame extends JFrame implements ActionListener {
 		gamePanel.setLayout(new GridLayout(4,4));
 
 		// Resten av koden för framen
-		//setSize(600, 600);
-		pack();
+		setSize(600, 600);
+		//pack();
 		setLocation(900, 400);
 		setVisible(true);
-		setDefaultCloseOperation(3);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		// Testar array[][] loopningen:
 		
