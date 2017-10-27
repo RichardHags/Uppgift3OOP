@@ -1,10 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -42,7 +45,7 @@ public class Frame extends JFrame implements ActionListener {
 		// "tomma" knappen
 		slideButton[15] = new JButton("");
 		slideButton[15].setBackground(Color.BLACK);
-		//slideButton[15].setPreferredSize(new Dimension(100, 100));
+		slideButton[15].setPreferredSize(new Dimension(100, 100));
 		slideButton[15].addActionListener(this);
 
 		// GridLayout för game panelen, 4x4
@@ -62,15 +65,24 @@ public class Frame extends JFrame implements ActionListener {
 
 	}
 
-	// Metod för shuffle, den loopar x antal gånger och "klickar" på en random knapp i arrayen.
-	// meningen är att den ska flytta på knapparna x antal gånger. Behöver en metod som flyttar på
-	// knapparna innan den fungerar som den ska (eller bara i actionEventet)
-	public void shuffle() {  
+	/*Metod för shuffle, den loopar x antal gånger och "klickar" på en random knapp
+	i arrayen. meningen är att den ska flytta på knapparna x antal gånger. Behöver en metod
+	som flyttar på knapparna innan den fungerar som den ska (eller bara i actionEventet)*/
+	public void shuffle() {
 		for (int i = 0; i < 30; i++) {
 			int random = (int) (Math.random() * 16);
 			slideButton[random].doClick(); // klickar (från programmet) på x om (x.doClick())
 		}
 	}
+
+	// Måste klura lite mer på det här
+
+	// public void shuffleButtons() {
+	// if(slideButton != null) {
+	// setGameField();
+	// Collections.shuffle(Arrays.asList(slideButton));
+	// }
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
