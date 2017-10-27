@@ -35,17 +35,7 @@ public class Frame extends JFrame implements ActionListener {
 		
 		// GridLayout för game panelen, 4X4
 		gamePanel.setLayout(new GridLayout(4,4));
-		//gamePanel.setLayout(new FlowLayout());
-		gamePanel.setPreferredSize(new Dimension(4*100, 4*100));  // ändrar storleken på panelen för knapparna
-
-		// Resten av koden för framen
-		setSize(600, 600);
-		//pack();
-		setLocation(900, 400);
-		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		// Testar array[][] loopningen:
+		gamePanel.setPreferredSize(new Dimension(400, 400));  // ändrar storleken på panelen för knapparna
 		
 		int buttonName = 1; // knappnamnet börjar på 1, ökar sen i loopen
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
@@ -53,10 +43,20 @@ public class Frame extends JFrame implements ActionListener {
 				slideButton[row][col] = new JButton();  // skapar en button
 				slideButton[row][col].setText(Integer.toString(buttonName)); //Sätter ut namnet
 				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));  //for the lulz
+				slideButton[row][col].setPreferredSize(new Dimension(100, 100));
 				buttonName++;  // ökar buttonName
 				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
 			}
 		}
+		
+		// Resten av koden för framen
+		setSize(520,600);
+		setMinimumSize(new Dimension(520,600));
+		setLocation(700, 300);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		
 	}
 
 	@Override
