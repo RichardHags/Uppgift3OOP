@@ -1,4 +1,7 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +35,8 @@ public class Frame extends JFrame implements ActionListener {
 		
 		// GridLayout för game panelen, 4X4
 		gamePanel.setLayout(new GridLayout(4,4));
+		//gamePanel.setLayout(new FlowLayout());
+		gamePanel.setPreferredSize(new Dimension(4*100, 4*100));  // ändrar storleken på panelen för knapparna
 
 		// Resten av koden för framen
 		setSize(600, 600);
@@ -47,6 +52,7 @@ public class Frame extends JFrame implements ActionListener {
 			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
 				slideButton[row][col] = new JButton();  // skapar en button
 				slideButton[row][col].setText(Integer.toString(buttonName)); //Sätter ut namnet
+				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));  //for the lulz
 				buttonName++;  // ökar buttonName
 				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
 			}
