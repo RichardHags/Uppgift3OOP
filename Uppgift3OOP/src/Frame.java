@@ -29,6 +29,7 @@ public class Frame extends JFrame implements ActionListener {
 		add("South", buttonPanel);
 
 		// Knapparna för new game och avsluta spelet samt actionlisterners för dem
+		//buttonPanel.setBackground(Color.GRAY);
 		buttonPanel.add(newGame);
 		buttonPanel.add(endGame);
 		endGame.addActionListener(this);
@@ -41,16 +42,14 @@ public class Frame extends JFrame implements ActionListener {
 		int buttonName = 1; // knappnamnet börjar på 1, ökar sen i loopen
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
 			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
-				
-				
 				slideButton[row][col] = new JButton();  // skapar en button
 				slideButton[row][col].setText(Integer.toString(buttonName)); //Sätter ut namnet
-				if (buttonName == 16) {
+				slideButton[row][col].setBackground(Color.ORANGE);
+				if (buttonName == 16) { // Sista platsen blir tom och svart
 					slideButton[row][col].setText("");
 					slideButton[row][col].setBackground(Color.BLACK);
-				}
-				
-				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));  //for the lulz
+				}	
+				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));  //for the lulz		
 				slideButton[row][col].setPreferredSize(new Dimension(100, 100));
 				buttonName++;  // ökar buttonName
 				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
@@ -58,8 +57,8 @@ public class Frame extends JFrame implements ActionListener {
 		}
 		
 		// Resten av koden för framen
-		setSize(520,600);
-		setMinimumSize(new Dimension(520,600));
+		setSize(520,500);
+		setMinimumSize(new Dimension(520,500));
 		setLocation(700, 300);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
