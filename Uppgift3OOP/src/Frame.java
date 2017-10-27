@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,9 +18,10 @@ public class Frame extends JFrame implements ActionListener {
 	private final JPanel buttonPanel = new JPanel();
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
+
 	
 	// Testar att göra en array av int, ska sen försöka loopa igenom och sätta ut dem på framen
-	JButton[][]  slideButton = new JButton [4][4];
+	private JButton[][]  slideButton = new JButton [4][4];
 
 	public Frame() {
 
@@ -36,7 +39,21 @@ public class Frame extends JFrame implements ActionListener {
 		// GridLayout för game panelen, 4X4
 		gamePanel.setLayout(new GridLayout(4,4));
 		gamePanel.setPreferredSize(new Dimension(400, 400));  // ändrar storleken på panelen för knapparna
-		
+				
+	}
+	
+	//Måste klura lite mer på det här
+	
+	//public void shuffleButtons() {
+	//	if(slideButton != null) {
+		//	setGameField();
+		//	Collections.shuffle(Arrays.asList(slideButton));
+	//	}
+	//}
+
+	
+	public void setGameField() {
+				
 		int buttonName = 1; // knappnamnet börjar på 1, ökar sen i loopen
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
 			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
@@ -46,19 +63,20 @@ public class Frame extends JFrame implements ActionListener {
 				slideButton[row][col].setPreferredSize(new Dimension(100, 100));
 				buttonName++;  // ökar buttonName
 				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
+			
 			}
 		}
 		
-		// Resten av koden för framen
-		setSize(520,600);
-		setMinimumSize(new Dimension(520,600));
-		setLocation(700, 300);
-		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		
+			setSize(520,600);
+			setMinimumSize(new Dimension(520,600));
+			setLocation(700, 300);
+			setVisible(true);
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
+			
 	}
 
+
+				
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == endGame)
