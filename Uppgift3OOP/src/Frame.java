@@ -1,7 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -17,9 +16,8 @@ public class Frame extends JFrame implements ActionListener {
 	private final JPanel buttonPanel = new JPanel();
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
-	
-	// Testar att göra en array av int, ska sen försöka loopa igenom och sätta ut dem på framen
-	JButton[][]  slideButton = new JButton [4][4];
+
+	JButton[] slideButton = new JButton[16];
 
 	public Frame() {
 
@@ -29,49 +27,57 @@ public class Frame extends JFrame implements ActionListener {
 		add("South", buttonPanel);
 
 		// Knapparna för new game och avsluta spelet samt actionlisterners för dem
-		//buttonPanel.setBackground(Color.GRAY);
 		buttonPanel.add(newGame);
 		buttonPanel.add(endGame);
 		endGame.addActionListener(this);
 		newGame.addActionListener(this);
-		
-		// GridLayout för game panelen, 4X4
-		gamePanel.setLayout(new GridLayout(4,4));
-		gamePanel.setPreferredSize(new Dimension(400, 400));  // ändrar storleken på panelen för knapparna
-		
-		int buttonName = 1; // knappnamnet börjar på 1, ökar sen i loopen
-		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
-			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
-				slideButton[row][col] = new JButton();  // skapar en button
-				slideButton[row][col].setText(Integer.toString(buttonName)); //Sätter ut namnet
-				slideButton[row][col].setBackground(Color.ORANGE);
-				if (buttonName == 16) { // Sista platsen blir tom och svart
-					slideButton[row][col].setText("");
-					slideButton[row][col].setBackground(Color.BLACK);
-				}	
-				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));  //for the lulz		
-				slideButton[row][col].setPreferredSize(new Dimension(100, 100));
-				buttonName++;  // ökar buttonName
-				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
-			}
+
+		for (int rc = 0; rc < slideButton.length; rc++) { // Loopa igenom arrayen
+			slideButton[rc] = new JButton("" + (rc + 1)); // skapar en button
+			slideButton[rc].setBackground(Color.ORANGE);
+			slideButton[rc].setFont(new Font("Comic Sans MS", Font.PLAIN, 25)); // for the lulz
+			slideButton[rc].setPreferredSize(new Dimension(100, 100));
+			slideButton[rc].addActionListener(this);
 		}
-		
+		// "tomma" knappen
+		slideButton[15] = new JButton("");
+		slideButton[15].setBackground(Color.BLACK);
+		//slideButton[15].setPreferredSize(new Dimension(100, 100));
+		slideButton[15].addActionListener(this);
+
+		// GridLayout för game panelen, 4x4
+		gamePanel.setLayout(new GridLayout(4, 4, 4, 4));
+		gamePanel.setPreferredSize(new Dimension(400, 400)); // ändrar storleken på panelen för knapparna
+		for (int i = 0; i < 16; i++)
+			gamePanel.add(slideButton[i]); // sätter ut knapparna i panelen
+
 		// Resten av koden för framen
-		setSize(520,500);
-		setMinimumSize(new Dimension(520,500));
+		setSize(520, 500);
+		setMinimumSize(new Dimension(520, 500));
 		setLocation(700, 300);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		
+
+		// shuffle(); // shuffla spelet i början av programmet
+
+	}
+
+	// Metod för shuffle, den loopar x antal gånger och "klickar" på en random knapp i arrayen.
+	// meningen är att den ska flytta på knapparna x antal gånger. Behöver en metod som flyttar på
+	// knapparna innan den fungerar som den ska (eller bara i actionEventet)
+	public void shuffle() {  
+		for (int i = 0; i < 30; i++) {
+			int random = (int) (Math.random() * 16);
+			slideButton[random].doClick(); // klickar (från programmet) på x om (x.doClick())
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == endGame)
 			System.exit(0);
-		else {
-			System.out.println("hmm vi får fixa något här senare :D");
+		else if (e.getSource() == newGame) {
+			shuffle();
 		}
 
 	}
