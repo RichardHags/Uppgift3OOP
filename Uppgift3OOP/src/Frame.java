@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -40,8 +41,15 @@ public class Frame extends JFrame implements ActionListener {
 		int buttonName = 1; // knappnamnet börjar på 1, ökar sen i loopen
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
 			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
+				
+				
 				slideButton[row][col] = new JButton();  // skapar en button
 				slideButton[row][col].setText(Integer.toString(buttonName)); //Sätter ut namnet
+				if (buttonName == 16) {
+					slideButton[row][col].setText("");
+					slideButton[row][col].setBackground(Color.BLACK);
+				}
+				
 				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));  //for the lulz
 				slideButton[row][col].setPreferredSize(new Dimension(100, 100));
 				buttonName++;  // ökar buttonName
