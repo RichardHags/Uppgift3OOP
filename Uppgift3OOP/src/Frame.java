@@ -55,10 +55,19 @@ public class Frame extends JFrame implements ActionListener {
 			}
 		}
 		
+		Button[][] buttonTest = new Button[4][4];
+		int buttonName2 = 1; 
+		for (int row = 0; row < buttonTest.length; row++) { 
+			for (int col = 0; col < buttonTest.length; col++) { 
+				buttonTest[row][col] = new Button(Integer.toString(buttonName2), row, col);
+				buttonName2++; 			
+			}
+		}
+		
 		// Kollar positionen TA BORT DETTA SEN
 		int nr = 1;
-		for (int row = 0; row < slideButton.length; row++) { 
-			for (int col = 0; col < slideButton.length; col++) { 
+		for (int row = 0; row < buttonTest.length; row++) { 
+			for (int col = 0; col < buttonTest.length; col++) { 
 				System.out.println("knapp: " + nr);
 				System.out.println(row);
 				System.out.println(col);

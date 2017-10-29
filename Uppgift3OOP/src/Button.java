@@ -1,3 +1,5 @@
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Button {
 	
@@ -18,9 +20,9 @@ public class Button {
 	public int getCol() {
 		return col;
 	}
-
 	
-	
-	
+	public String getName() {
+		return name;
+	}
 
 }
