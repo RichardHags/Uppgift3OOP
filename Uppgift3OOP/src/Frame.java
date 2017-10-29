@@ -6,12 +6,16 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.util.Arrays;
 import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.sun.glass.events.MouseEvent;
+
 
 public class Frame extends JFrame implements ActionListener {
 
@@ -42,8 +46,11 @@ public class Frame extends JFrame implements ActionListener {
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
 			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
 				slideButton[row][col] = new JButton(); // skapar en button
-				slideButton[row][col].setText(Integer.toString(buttonName)); // Sätter ut namnet
+				//Addar Button klassen osäker om det kommer fungera:
+				slideButton[row][col] = new Button(Integer.toString(buttonName), row, col);
+				
 				slideButton[row][col].setBackground(Color.ORANGE);
+				slideButton[row][col].setText(Integer.toString(buttonName)); // Sätter ut namnet
 				if (buttonName == 16) { // Sista platsen blir tom och svart
 					slideButton[row][col].setText("");
 					slideButton[row][col].setBackground(Color.BLACK);
@@ -55,15 +62,25 @@ public class Frame extends JFrame implements ActionListener {
 			}
 		}
 		
+		// Testar button klassen TA BORT SEN
+		Button[][] buttonTest = new Button[4][4];
+		int buttonName2 = 1; 
+		for (int row = 0; row < buttonTest.length; row++) { 
+			for (int col = 0; col < buttonTest.length; col++) { 
+				buttonTest[row][col] = new Button(Integer.toString(buttonName2), row, col);
+				buttonName2++; 		
+			}
+		}
+		
 		// Kollar positionen TA BORT DETTA SEN
 		int nr = 1;
-		for (int row = 0; row < slideButton.length; row++) { 
-			for (int col = 0; col < slideButton.length; col++) { 
+		for (int row = 0; row < buttonTest.length; row++) {
+			for (int col = 0; col < buttonTest.length; col++) {
 				System.out.println("knapp: " + nr);
 				System.out.println(row);
 				System.out.println(col);
 				nr++;
-				}
+			}
 		}
 		
 
@@ -94,6 +111,8 @@ public class Frame extends JFrame implements ActionListener {
 		else if (e.getSource() == newGame) {
 			//shuffle();
 		}
+		
 
 	}
+	
 }
