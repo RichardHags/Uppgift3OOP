@@ -20,7 +20,7 @@ public class Frame extends JFrame implements ActionListener {
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
 
-	JButton[] slideButton = new JButton[16];
+	JButton[][] slideButton = new JButton[4][4];
 
 	public Frame() {
 
@@ -35,24 +35,25 @@ public class Frame extends JFrame implements ActionListener {
 		endGame.addActionListener(this);
 		newGame.addActionListener(this);
 
-		for (int rc = 0; rc < slideButton.length; rc++) { // Loopa igenom arrayen
-			slideButton[rc] = new JButton("" + (rc + 1)); // skapar en button
-			slideButton[rc].setBackground(Color.ORANGE);
-			slideButton[rc].setFont(new Font("Comic Sans MS", Font.PLAIN, 25)); // for the lulz
-			slideButton[rc].setPreferredSize(new Dimension(100, 100));
-			slideButton[rc].addActionListener(this);
-		}
-		// "tomma" knappen
-		slideButton[15] = new JButton("");
-		slideButton[15].setBackground(Color.BLACK);
-		slideButton[15].setPreferredSize(new Dimension(100, 100));
-		slideButton[15].addActionListener(this);
-
 		// GridLayout för game panelen, 4x4
 		gamePanel.setLayout(new GridLayout(4, 4, 4, 4));
-		gamePanel.setPreferredSize(new Dimension(400, 400)); // ändrar storleken på panelen för knapparna
-		for (int i = 0; i < 16; i++)
-			gamePanel.add(slideButton[i]); // sätter ut knapparna i panelen
+		gamePanel.setPreferredSize(new Dimension(400, 400));
+		int buttonName = 1; // knappnamnet börjar på 1, ökar sen i loopen
+		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
+			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
+				slideButton[row][col] = new JButton(); // skapar en button
+				slideButton[row][col].setText(Integer.toString(buttonName)); // Sätter ut namnet
+				slideButton[row][col].setBackground(Color.ORANGE);
+				if (buttonName == 16) { // Sista platsen blir tom och svart
+					slideButton[row][col].setText("");
+					slideButton[row][col].setBackground(Color.BLACK);
+				}
+				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25)); // for the lulz
+				slideButton[row][col].setPreferredSize(new Dimension(100, 100));
+				buttonName++; // ökar buttonName
+				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
+			}
+		}
 
 		// Resten av koden för framen
 		setSize(520, 500);
@@ -63,16 +64,6 @@ public class Frame extends JFrame implements ActionListener {
 
 		// shuffle(); // shuffla spelet i början av programmet
 
-	}
-
-	/*Metod för shuffle, den loopar x antal gånger och "klickar" på en random knapp
-	i arrayen. meningen är att den ska flytta på knapparna x antal gånger. Behöver en metod
-	som flyttar på knapparna innan den fungerar som den ska (eller bara i actionEventet)*/
-	public void shuffle() {
-		for (int i = 0; i < 30; i++) {
-			int random = (int) (Math.random() * 16);
-			slideButton[random].doClick(); // klickar (från programmet) på x om (x.doClick())
-		}
 	}
 
 	// Måste klura lite mer på det här
@@ -89,7 +80,7 @@ public class Frame extends JFrame implements ActionListener {
 		if (e.getSource() == endGame)
 			System.exit(0);
 		else if (e.getSource() == newGame) {
-			shuffle();
+			//shuffle();
 		}
 
 	}
