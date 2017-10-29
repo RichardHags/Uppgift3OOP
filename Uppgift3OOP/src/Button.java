@@ -4,7 +4,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
-public class Button extends JButton implements MouseListener {
+public class Button extends JButton  {
 	
 	protected int row;
 	protected int col;
@@ -14,7 +14,7 @@ public class Button extends JButton implements MouseListener {
 		this.name = name;
 		this.row = row;
 		this.col = col;
-		this.addMouseListener(this);
+		//this.addMouseListener(this);
 	}
 
 	public int getRow() {
@@ -29,13 +29,17 @@ public class Button extends JButton implements MouseListener {
 		return name;
 	}
 
-	@Override
+	/*@Override
 	public void mouseClicked(MouseEvent e) {
 		Button mouseClick = (Button) (e.getSource());
+		int r = mouseClick.getRow();
+		int c = mouseClick.getCol();
+		System.out.println("row: " + r + ", Col: " + c);
 		int r = mouseClick.getRow() + 1;
 		int c = mouseClick.getCol() + 1;
 		
 		System.out.println("row: " + r + ", Col: " + c);
+
 	}
 
 	@Override
@@ -60,6 +64,6 @@ public class Button extends JButton implements MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 	
 }
