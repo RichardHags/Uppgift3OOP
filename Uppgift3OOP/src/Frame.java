@@ -46,7 +46,9 @@ public class Frame extends JFrame implements ActionListener {
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
 			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
 				slideButton[row][col] = new JButton(); // skapar en button
+				//Addar Button klassen osäker om det kommer fungera:
 				slideButton[row][col] = new Button(Integer.toString(buttonName), row, col);
+				
 				slideButton[row][col].setBackground(Color.ORANGE);
 				slideButton[row][col].setText(Integer.toString(buttonName)); // Sätter ut namnet
 				if (buttonName == 16) { // Sista platsen blir tom och svart
@@ -59,8 +61,6 @@ public class Frame extends JFrame implements ActionListener {
 				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
 			}
 		}
-		
-		
 		
 		// Testar button klassen TA BORT SEN
 		Button[][] buttonTest = new Button[4][4];

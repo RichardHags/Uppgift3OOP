@@ -34,8 +34,10 @@ public class Button extends JButton implements MouseListener {
 		Button mouseClick = (Button) (e.getSource());
 		int r = mouseClick.getRow();
 		int c = mouseClick.getCol();
+		int r2 = e.getX();
+		int c2 = e.getY();
 		System.out.println("row: " + r + ", Col: " + c);
-		
+		System.out.println("row: " + r2 + ", Col: " + c2);
 	}
 
 	@Override
