@@ -54,6 +54,18 @@ public class Frame extends JFrame implements ActionListener {
 				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
 			}
 		}
+		
+		// Kollar positionen TA BORT DETTA SEN
+		int nr = 1;
+		for (int row = 0; row < slideButton.length; row++) { 
+			for (int col = 0; col < slideButton.length; col++) { 
+				System.out.println("knapp: " + nr);
+				System.out.println(row);
+				System.out.println(col);
+				nr++;
+				}
+		}
+		
 
 		// Resten av koden för framen
 		setSize(520, 500);
