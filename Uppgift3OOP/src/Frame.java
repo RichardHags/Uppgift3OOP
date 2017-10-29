@@ -83,6 +83,7 @@ public class Frame extends JFrame implements ActionListener {
 			}
 		}
 
+		
 		// Resten av koden för framen
 		setSize(520, 500);
 		setMinimumSize(new Dimension(520, 500));

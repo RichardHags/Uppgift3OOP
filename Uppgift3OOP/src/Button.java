@@ -36,7 +36,6 @@ public class Button extends JButton  {
 		int c = mouseClick.getCol();
 		System.out.println("row: " + r + ", Col: " + c);
 		
-		
 	}
 
 	@Override
