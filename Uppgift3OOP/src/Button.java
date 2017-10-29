@@ -35,8 +35,11 @@ public class Button extends JButton  {
 		int r = mouseClick.getRow();
 		int c = mouseClick.getCol();
 		System.out.println("row: " + r + ", Col: " + c);
+		int r = mouseClick.getRow() + 1;
+		int c = mouseClick.getCol() + 1;
 		
-		
+		System.out.println("row: " + r + ", Col: " + c);
+
 	}
 
 	@Override
