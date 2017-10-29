@@ -77,8 +77,8 @@ public class Frame extends JFrame implements ActionListener {
 		for (int row = 0; row < buttonTest.length; row++) {
 			for (int col = 0; col < buttonTest.length; col++) {
 				System.out.println("knapp: " + nr);
-				System.out.println(row);
-				System.out.println(col);
+				System.out.println(row + 1);
+				System.out.println(col + 1);
 				nr++;
 			}
 		}
