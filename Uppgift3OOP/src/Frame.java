@@ -6,19 +6,24 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Frame extends JFrame implements ActionListener {
 
-	private final int ROWS = 3;
-	private final int COLS = 3;
+
+	private int ROWS = 4;
+	private int COLS = 4;
+
 	private final JPanel gamePanel = new JPanel();
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
+	private final JLabel difficulty = new JLabel("Change difficulty max 4");
+	private final JTextField changeDifficulty = new JTextField(5);
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
 	private final JButton cheat = new JButton("Cheat");
@@ -38,14 +43,18 @@ public class Frame extends JFrame implements ActionListener {
 		buttonPanel.add(newGame);
 		buttonPanel.add(endGame);
 		buttonPanel.add(cheat);
+		
+		textPanel.add(difficulty);
+		textPanel.add(changeDifficulty);
+		
 		endGame.addActionListener(this);
 		newGame.addActionListener(this);
 		cheat.addActionListener(this);
+		changeDifficulty.addActionListener(this);
 
-		// GridLayout för game panelen, 4x4
+		// GridLayout för game panelen
 		gamePanel.setLayout(new GridLayout(ROWS, COLS));
 		gamePanel.setPreferredSize(new Dimension(400, 400));
-		createButtons();
 
 		// Resten av koden för framen
 		setSize(520, 500);
@@ -53,10 +62,11 @@ public class Frame extends JFrame implements ActionListener {
 		setLocation(700, 300);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
+		createButtons();
 		shuffle(); // shuffla spelet i början av programmet
 	}
-
+	
 	// skapar en metod som skapar knapparna
 
 	private void createButtons() {
@@ -73,6 +83,10 @@ public class Frame extends JFrame implements ActionListener {
 		}
 	}
 
+	public void setRowsCols(int r, int c) {
+		ROWS = r;
+		COLS = c;
+	}
 	public void checkWin() {
 		int x = 1;
 		int win = 0;
@@ -81,7 +95,7 @@ public class Frame extends JFrame implements ActionListener {
 				if (slideButton[i][j].getText().equals(x + "")) {
 					win++;
 					if (win == (ROWS * COLS) - 1) {
-						JOptionPane.showMessageDialog(null, "u have won!");
+						JOptionPane.showMessageDialog(null, "You have won!");		
 					}
 				}
 				x++;
@@ -114,7 +128,7 @@ public class Frame extends JFrame implements ActionListener {
 			temp = (Button) slideButton[r - 1][c];
 		// om man trycker på en knapp som är för långt ifrån:
 		if (temp == null)
-			System.out.println("fel knapp"); // TODO ändra till något snyggare
+			System.out.println("Ogiltig flytt!"); // TODO ändra till något snyggare
 		else {
 			// Här byter knapparna namn och bakgrund med varandra
 			temp.setText(slideButton[r][c].getText());
@@ -124,55 +138,34 @@ public class Frame extends JFrame implements ActionListener {
 		}
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == endGame)
-			System.exit(0);
-		else if (e.getSource() == newGame) {
-			shuffle();
-		} else if (e.getSource() == cheat) {
-			//cheatAllignement();
-		//cheatTest();
-		} else { // om man inte trycker på endGame eller newGame:
-			for (int r = 0; r < ROWS; r++) {
-				for (int c = 0; c < COLS; c++) {
-					if (slideButton[r][c] == e.getSource()) {
-						moveButton(r, c);
-					}
-				}
-			}
-		}
-
-	}
-	
-
 
 	// Metod som fuskar fram sig en vinst i spelet
 	private void cheatAllignement() {
 		gamePanel.removeAll();
 		buttonName = 0;
 		for (int r = 0; r < ROWS; r++) {
-			for (int c = 0; c < COLS; c++) {
-				
+			for (int c = 0; c < COLS; c++) {				
 				slideButton[r][c] = new JButton();
 				slideButton[r][c] = new Button("", ROWS, COLS);
 				slideButton[r][c].setText(Integer.toString(buttonName + 1));
 				slideButton[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
 				slideButton[r][c].setBackground(Color.ORANGE);
+				slideButton[r][c].addActionListener(this);
 				buttonName++;
 				gamePanel.add(slideButton[r][c]);
 				slideButton[r][c].addActionListener(this);
 				if (buttonName == (ROWS*COLS)) {
 					setBlack(r, c);
 				} 
-				
+
+
+				}
+
 			}
-			
-		}
 		checkWin();
 		gamePanel.revalidate();
 		gamePanel.repaint();
-	}
+		}
 
 	private void shuffle() {
 		boolean[] used = new boolean[(ROWS * COLS)];
@@ -180,7 +173,7 @@ public class Frame extends JFrame implements ActionListener {
 		/*
 		 * genererar nya nummer för att randomiza spelsplanens knappar och använder en
 		 * boolean för att avbryta loopen när värdena blivit tillsatta, sedan nollställs
-		 * texten för den svarta knappen. Ser även till att värdena är
+		 * texten för den svarta knappen. Ser även till att värdena inte dubbleras
 		 */
 
 		for (int r = 0; r < ROWS; r++) {
@@ -208,4 +201,33 @@ public class Frame extends JFrame implements ActionListener {
 		}
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == endGame)
+			System.exit(0);
+		else if (e.getSource() == newGame) {
+			shuffle();
+		} else if (e.getSource() == cheat) {
+			cheatAllignement();
+		}else if (e.getSource() == changeDifficulty) {
+			int r = Integer.parseInt(changeDifficulty.getText());
+			gamePanel.removeAll();
+			setRowsCols(r, r);
+			createButtons();
+			shuffle();
+			gamePanel.revalidate();
+			gamePanel.repaint();
+			
+			
+			
+		} else { // om man inte trycker på endGame eller newGame:
+			for (int r = 0; r < ROWS; r++) {
+				for (int c = 0; c < COLS; c++) {
+					if (slideButton[r][c] == e.getSource()) {
+						moveButton(r, c);
+					}
+				}
+			}
+		}
+	}
 }
