@@ -19,7 +19,7 @@ public class Frame extends JFrame implements ActionListener {
 	private final JPanel gamePanel = new JPanel();
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
-	private final JLabel difficulty = new JLabel("Change difficulty");
+	private final JLabel difficulty = new JLabel("Change difficulty max 4");
 	private final JTextField changeDifficulty = new JTextField(5);
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
@@ -49,7 +49,7 @@ public class Frame extends JFrame implements ActionListener {
 		cheat.addActionListener(this);
 		changeDifficulty.addActionListener(this);
 
-		// GridLayout för game panelen, 4x4
+		// GridLayout för game panelen
 		gamePanel.setLayout(new GridLayout(ROWS, COLS));
 		gamePanel.setPreferredSize(new Dimension(400, 400));
 
@@ -125,7 +125,7 @@ public class Frame extends JFrame implements ActionListener {
 			temp = (Button) slideButton[r - 1][c];
 		// om man trycker på en knapp som är för långt ifrån:
 		if (temp == null)
-			System.out.println("fel knapp"); // TODO ändra till något snyggare
+			System.out.println("Ogiltig flytt!"); // TODO ändra till något snyggare
 		else {
 			// Här byter knapparna namn och bakgrund med varandra
 			temp.setText(slideButton[r][c].getText());
@@ -212,6 +212,8 @@ public class Frame extends JFrame implements ActionListener {
 			shuffle();
 			gamePanel.revalidate();
 			gamePanel.repaint();
+			
+			
 			
 		} else { // om man inte trycker på endGame eller newGame:
 			for (int r = 0; r < ROWS; r++) {
