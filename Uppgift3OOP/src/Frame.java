@@ -130,19 +130,18 @@ public class Frame extends JFrame implements ActionListener {
 	
 	// Metod som fuskar fram sig en vinst i spelet
 	private void cheatAllignement() {
-		JButton[][] temp = new JButton[4][4];
 		gamePanel.removeAll();
 for(int r =0; r<4; r++) {
 		for(int c = 0; c<4; c++) {
-		temp[r][c] = new JButton();
-		temp[r][c].setText(Integer.toString(buttonName + 1));
-		temp[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-		temp[r][c].setBackground(Color.ORANGE);
+		slideButton[r][c] = new JButton();
+		slideButton[r][c].setText(Integer.toString(buttonName + 1));
+		slideButton[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+		slideButton[r][c].setBackground(Color.ORANGE);
 		buttonName++;
-		gamePanel.add(temp[r][c]);
+		gamePanel.add(slideButton[r][c]);
 			if(buttonName == 16) {
-				temp[r][c].setBackground(Color.BLACK);
-				temp[r][c].setText("");
+				slideButton[r][c].setBackground(Color.BLACK);
+				slideButton[r][c].setText("");
 		}
 		}
 }
