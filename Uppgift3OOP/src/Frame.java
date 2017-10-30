@@ -40,7 +40,7 @@ public class Frame extends JFrame implements ActionListener {
 		newGame.addActionListener(this);
 
 		// GridLayout för game panelen, 4x4
-		gamePanel.setLayout(new GridLayout(4, 4, 4, 4));
+		gamePanel.setLayout(new GridLayout(4, 4));
 		gamePanel.setPreferredSize(new Dimension(400, 400));
 		int buttonName = 1; // knappnamnet börjar på 1, ökar sen i loopen
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
