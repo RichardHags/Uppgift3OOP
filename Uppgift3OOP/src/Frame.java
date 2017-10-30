@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 public class Frame extends JFrame implements ActionListener {
 
-	private final int ROWS = 2;
-	private final int COLS = 2;
+	private final int ROWS = 4;
+	private final int COLS = 4;
 	private final JPanel gamePanel = new JPanel();
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
@@ -156,8 +156,7 @@ public class Frame extends JFrame implements ActionListener {
 				buttonName++;
 				gamePanel.add(slideButton[r][c]);
 				if (buttonName == (ROWS*COLS)) {
-					slideButton[r][c].setBackground(Color.BLACK);
-					slideButton[r][c].setText("");
+					setBlack(r,c);
 				}
 			}
 			
