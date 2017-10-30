@@ -117,7 +117,7 @@ public class Frame extends JFrame implements ActionListener {
 			     	    int val = (int)(16*Math.random ( ));
 					
 				    while (used [val]) {
-				    	val = (int) (15 * Math.random ( ));
+				    	val = (int) (16 * Math.random ( ));
 				     }
 				     //  now this value has been applied
 				     used [val] = true;
