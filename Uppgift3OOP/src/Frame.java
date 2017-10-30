@@ -38,15 +38,14 @@ public class Frame extends JFrame implements ActionListener {
 		gamePanel.setLayout(new GridLayout(4, 4));
 		gamePanel.setPreferredSize(new Dimension(400, 400));
 		createButtons();
-
+		shuffle(); // shuffla spelet i början av programmet
+		
 		// Resten av koden för framen
 		setSize(520, 500);
 		setMinimumSize(new Dimension(520, 500));
 		setLocation(700, 300);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		shuffle(); // shuffla spelet i början av programmet
 
 	}
 		// skapar en metod som skapar knapparna
