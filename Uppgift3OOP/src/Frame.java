@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 public class Frame extends JFrame implements ActionListener {
 
-	private final int ROWS = 3;
-	private final int COLS = 3;
+	private final int ROWS = 2;
+	private final int COLS = 2;
 	private final JPanel gamePanel = new JPanel();
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
@@ -57,8 +57,7 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	// skapar en metod som skapar knapparna
-	
-	
+
 	private void createButtons() {
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
 			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
@@ -133,7 +132,7 @@ public class Frame extends JFrame implements ActionListener {
 		else if (e.getSource() == newGame) {
 			shuffle();
 		} else if (e.getSource() == cheat) {
-				cheatAllignement();		
+			cheatAllignement();
 		} else { // om man inte trycker på endGame eller newGame:
 			for (int r = 0; r < ROWS; r++) {
 				for (int c = 0; c < COLS; c++) {
@@ -145,25 +144,26 @@ public class Frame extends JFrame implements ActionListener {
 		}
 
 	}
-	
+
 	// Metod som fuskar fram sig en vinst i spelet
 	private void cheatAllignement() {
-		JButton[][] temp = new JButton[ROWS][COLS];
 		gamePanel.removeAll();
-for(int r =0; r<ROWS; r++) {
-		for(int c = 0; c<COLS; c++) {
-		temp[r][c] = new JButton();
-		temp[r][c].setText(Integer.toString(buttonName + 1));
-		temp[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-		temp[r][c].setBackground(Color.ORANGE);
-		buttonName++;
-		gamePanel.add(temp[r][c]);
-			if(buttonName == 16) {
-				temp[r][c].setBackground(Color.BLACK);
-				temp[r][c].setText("");
+		for (int r = 0; r < ROWS; r++) {
+			for (int c = 0; c < COLS; c++) {
+				slideButton[r][c] = new JButton();
+				slideButton[r][c].setText(Integer.toString(buttonName + 1));
+				slideButton[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+				slideButton[r][c].setBackground(Color.ORANGE);
+				buttonName++;
+				gamePanel.add(slideButton[r][c]);
+				if (buttonName == (ROWS*COLS)) {
+					slideButton[r][c].setBackground(Color.BLACK);
+					slideButton[r][c].setText("");
+				}
+			}
+			
 		}
-		}
-}
+		checkWin();
 		gamePanel.revalidate();
 		gamePanel.repaint();
 	}
