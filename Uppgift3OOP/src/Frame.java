@@ -109,10 +109,33 @@ public class Frame extends JFrame implements ActionListener {
 		if (e.getSource() == endGame)
 			System.exit(0);
 		else if (e.getSource() == newGame) {
-			//shuffle();
-		}
+			/*boolean  [ ] used = new boolean [16];
+			
+			//  generate a random number between 0 and 15
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+			     	    int val = (int)(16*Math.random ( ));
+					
+				    while (used [val]) {
+				    	val = (int) (15 * Math.random ( ));
+				     }
+				     //  now this value has been applied
+				     used [val] = true;
+					
+				     //  leave one square empty and identify it
+				     //  by color
+				    if (val !=0) {
+				         slideButton[i][j].setText( "" + val);
+				         slideButton[i][j].setBackground (Color.ORANGE);
+				    }
+				    else
+				         slideButton[i][j].setBackground (Color.BLACK);
+				      
+			  	}
+
+		}*/
 		
 
 	}
-	
+	}
 }
