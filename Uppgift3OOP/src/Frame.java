@@ -127,7 +127,7 @@ public class Frame extends JFrame implements ActionListener {
 
 		/* genererar nya nummer för att randomiza spelsplanens knappar och använder en
 		 boolean för att avbryta loopen när värdena blivit tillsatta, sedan nollställs texten
-		 för den svarta knappen. Ser även till att värdena är */
+		 för den svarta knappen. Ser även till att siffrorna inte dubbleras */
 
 		for (int r = 0; r < 4; r++) {
 			for (int c = 0; c < 4; c++) {
