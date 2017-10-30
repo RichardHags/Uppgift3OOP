@@ -125,7 +125,7 @@ public class Frame extends JFrame implements ActionListener {
 			temp = (Button) slideButton[r - 1][c];
 		// om man trycker på en knapp som är för långt ifrån:
 		if (temp == null)
-			System.out.println("Ogiltig flytt!"); // TODO ändra till något snyggare
+			System.out.println("Ogiltig flytt!");
 		else {
 			// Här byter knapparna namn och bakgrund med varandra
 			temp.setText(slideButton[r][c].getText());
