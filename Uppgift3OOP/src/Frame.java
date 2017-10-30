@@ -130,6 +130,8 @@ public class Frame extends JFrame implements ActionListener {
 		else if (e.getSource() == newGame) {
 			shuffle();
 
+			
+			
 		} else if (e.getSource() == cheat) {
 			/*
 			 * TODO skapa ett fusk som automatiskt vinner spelet för att visa Sigrun att
