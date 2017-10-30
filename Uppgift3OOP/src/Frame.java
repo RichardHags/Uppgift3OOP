@@ -5,6 +5,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -43,6 +48,20 @@ public class Frame extends JFrame implements ActionListener {
 				slideButton[row][col] = new Button(Integer.toString(buttonName), row, col);
 
 				slideButton[row][col].setBackground(Color.ORANGE);
+				JButton[][] temp = new Button[4][4];
+				List<JButton[]> temp2 = new ArrayList<>();
+				
+			for(JButton[] k: temp) {
+				List<JButton> list = (List <JButton>) Arrays.asList(k);
+				Collections.shuffle(list);
+				JButton[] tempArray = (JButton[]) list.toArray();
+				temp2.add(tempArray);
+			}
+				Collections.shuffle(temp2);
+				temp = (JButton[][]) temp2.toArray(new JButton[0][]);
+				for(JButton[] k:temp) {
+					System.out.println(Arrays.toString(k));
+				}
 				slideButton[row][col].setText(Integer.toString(buttonName)); // Sätter ut namnet
 				if (buttonName == 16) { // Sista platsen blir tom och svart
 					setBlack(row, col);
@@ -119,38 +138,60 @@ public class Frame extends JFrame implements ActionListener {
 			setBlack(r, c);
 		}
 	}
-
+/* Försöker shuffla genom att konvertera Array till list så att Collections.shuffle(Arrays.asList)
+ * ska funka då nästan alla online tycker det är enklaste sättet men får det inte att funka än...
+ */
+	/*public void shuffleButtons() {
+		JButton[][] temp = new Button[4][4];
+			List<JButton[]> temp2 = new ArrayList<>();
+			
+		for(JButton[] k: temp) {
+			List<JButton> list = (List <JButton>) Arrays.asList(k);
+			Collections.shuffle(list);
+			JButton[] tempArray = (JButton[]) list.toArray();
+			temp2.add(tempArray);
+		}
+			Collections.shuffle(temp2);
+			temp = (JButton[][]) temp2.toArray(new JButton[0][]);
+			for(JButton[] k:temp) {
+				System.out.println(Arrays.toString(k));
+			}
+		}*/
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == endGame)
 			System.exit(0);
 		else if (e.getSource() == newGame) {
 
-			/*boolean  [ ] used = new boolean [16];
+			boolean  [ ] used = new boolean [16];
 			
-			//  generate a random number between 0 and 15
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 4; j++) {
+			//  genererar nya nummer för att randomiza spelsplanens knappar och använder en boolean
+			// för att avbryta loopen när värdena blivit tillsatta, sedan nollställs texten för den svarta knappen.
+			
+			for (int r = 0; r < 4; r++) {
+				for (int c = 0; c < 4; c++) {
 			     	    int val = (int)(16*Math.random ( ));
 					
 				    while (used [val]) {
 				    	val = (int) (16 * Math.random ( ));
 				     }
-				     //  now this value has been applied
+				     
 				     used [val] = true;
-					
-				     //  leave one square empty and identify it
-				     //  by color
+				
 				    if (val !=0) {
-				         slideButton[i][j].setText( "" + val);
-				         slideButton[i][j].setBackground (Color.ORANGE);
+				         slideButton[r][c].setText( "" + val);
+				         slideButton[r][c].setBackground (Color.ORANGE);
 				    }
 				    else
-				         slideButton[i][j].setBackground (Color.BLACK);
+				         slideButton[r][c].setBackground (Color.BLACK);
+				    		if(slideButton[r][c].getBackground() == Color.black) {
+				    			slideButton[r][c].setText("");
+				    		}
 				      
 			  	}
 
-		}*/
+		}
 		
 
 
