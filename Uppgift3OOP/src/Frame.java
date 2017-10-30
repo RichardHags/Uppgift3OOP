@@ -26,7 +26,7 @@ public class Frame extends JFrame implements ActionListener {
 
 	public Frame() {
 
-		// lägger ut 3 delpaneler, en för framen och en för knapparna samt en för text.
+		// lägger ut 3 delpaneler, en för framen och en för knapparna
 		setLayout(new BorderLayout());
 		add("North", gamePanel);
 		add("West", textPanel);
@@ -55,6 +55,8 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	// skapar en metod som skapar knapparna
+	
+	
 	private void createButtons() {
 		for (int row = 0; row < slideButton.length; row++) { // loopar först igenom raderna
 			for (int col = 0; col < slideButton.length; col++) { // sen kolumnerna
@@ -130,8 +132,6 @@ public class Frame extends JFrame implements ActionListener {
 		else if (e.getSource() == newGame) {
 			shuffle();
 
-			
-			
 		} else if (e.getSource() == cheat) {
 			/*
 			 * TODO skapa ett fusk som automatiskt vinner spelet för att visa Sigrun att
