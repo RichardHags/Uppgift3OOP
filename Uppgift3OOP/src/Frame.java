@@ -23,6 +23,7 @@ public class Frame extends JFrame implements ActionListener {
 	private final JButton cheat = new JButton("Cheat");
 
 	JButton[][] slideButton = new JButton[ROWS][COLS];
+	private int buttonName = 0;
 
 	public Frame() {
 
@@ -38,6 +39,7 @@ public class Frame extends JFrame implements ActionListener {
 		buttonPanel.add(cheat);
 		endGame.addActionListener(this);
 		newGame.addActionListener(this);
+		cheat.addActionListener(this);
 
 		// GridLayout för game panelen, 4x4
 		gamePanel.setLayout(new GridLayout(ROWS, COLS));
@@ -85,7 +87,6 @@ public class Frame extends JFrame implements ActionListener {
 					}
 				}
 				x++;
-
 			}
 		}
 	}
@@ -131,12 +132,8 @@ public class Frame extends JFrame implements ActionListener {
 			System.exit(0);
 		else if (e.getSource() == newGame) {
 			shuffle();
-
 		} else if (e.getSource() == cheat) {
-			/*
-			 * TODO skapa ett fusk som automatiskt vinner spelet för att visa Sigrun att
-			 * programmet fungerar utan att spela igenom hela!
-			 */
+				cheatAllignement();		
 		} else { // om man inte trycker på endGame eller newGame:
 			for (int r = 0; r < ROWS; r++) {
 				for (int c = 0; c < COLS; c++) {
@@ -147,6 +144,28 @@ public class Frame extends JFrame implements ActionListener {
 			}
 		}
 
+	}
+	
+	// Metod som fuskar fram sig en vinst i spelet
+	private void cheatAllignement() {
+		JButton[][] temp = new JButton[ROWS][COLS];
+		gamePanel.removeAll();
+for(int r =0; r<ROWS; r++) {
+		for(int c = 0; c<COLS; c++) {
+		temp[r][c] = new JButton();
+		temp[r][c].setText(Integer.toString(buttonName + 1));
+		temp[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+		temp[r][c].setBackground(Color.ORANGE);
+		buttonName++;
+		gamePanel.add(temp[r][c]);
+			if(buttonName == 16) {
+				temp[r][c].setBackground(Color.BLACK);
+				temp[r][c].setText("");
+		}
+		}
+}
+		gamePanel.revalidate();
+		gamePanel.repaint();
 	}
 
 	private void shuffle() {
