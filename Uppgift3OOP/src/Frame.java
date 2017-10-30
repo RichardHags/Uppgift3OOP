@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Frame extends JFrame implements ActionListener {
-
 
 	private int ROWS = 4;
 	private int COLS = 4;
@@ -29,7 +27,7 @@ public class Frame extends JFrame implements ActionListener {
 	private final JButton cheat = new JButton("Cheat");
 
 	JButton[][] slideButton = new JButton[ROWS][COLS];
-	private int buttonName = 0;
+	
 
 	public Frame() {
 
@@ -142,30 +140,27 @@ public class Frame extends JFrame implements ActionListener {
 	// Metod som fuskar fram sig en vinst i spelet
 	private void cheatAllignement() {
 		gamePanel.removeAll();
-		buttonName = 0;
+		int buttonName = 0;
 		for (int r = 0; r < ROWS; r++) {
-			for (int c = 0; c < COLS; c++) {				
+			for (int c = 0; c < COLS; c++) {
 				slideButton[r][c] = new JButton();
-				slideButton[r][c] = new Button("", ROWS, COLS);
+				slideButton[r][c] = new Button("", r, c);
 				slideButton[r][c].setText(Integer.toString(buttonName + 1));
 				slideButton[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
 				slideButton[r][c].setBackground(Color.ORANGE);
 				slideButton[r][c].addActionListener(this);
 				buttonName++;
 				gamePanel.add(slideButton[r][c]);
-				slideButton[r][c].addActionListener(this);
-				if (buttonName == (ROWS*COLS)) {
+				if (buttonName == (ROWS * COLS)) {
 					setBlack(r, c);
-				} 
-
-
 				}
-
 			}
+
+		}
 		checkWin();
 		gamePanel.revalidate();
 		gamePanel.repaint();
-		}
+	}
 
 	private void shuffle() {
 		boolean[] used = new boolean[(ROWS * COLS)];
@@ -217,9 +212,7 @@ public class Frame extends JFrame implements ActionListener {
 			shuffle();
 			gamePanel.revalidate();
 			gamePanel.repaint();
-			
-			
-			
+
 		} else { // om man inte trycker på endGame eller newGame:
 			for (int r = 0; r < ROWS; r++) {
 				for (int c = 0; c < COLS; c++) {
