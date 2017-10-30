@@ -26,7 +26,7 @@ public class Frame extends JFrame implements ActionListener {
 
 	public Frame() {
 
-		// lägger ut 2 delpaneler, en för framen och en för knapparna
+		// lägger ut 3 delpaneler, en för framen och en för knapparna samt en för text.
 		setLayout(new BorderLayout());
 		add("North", gamePanel);
 		add("West", textPanel);
