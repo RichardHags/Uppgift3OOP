@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 public class Frame extends JFrame implements ActionListener {
 
 	private final JPanel gamePanel = new JPanel();
@@ -48,30 +47,17 @@ public class Frame extends JFrame implements ActionListener {
 				slideButton[row][col] = new Button(Integer.toString(buttonName), row, col);
 
 				slideButton[row][col].setBackground(Color.ORANGE);
-				JButton[][] temp = new Button[4][4];
-				List<JButton[]> temp2 = new ArrayList<>();
-				
-			for(JButton[] k: temp) {
-				List<JButton> list = (List <JButton>) Arrays.asList(k);
-				Collections.shuffle(list);
-				JButton[] tempArray = (JButton[]) list.toArray();
-				temp2.add(tempArray);
-			}
-				Collections.shuffle(temp2);
-				temp = (JButton[][]) temp2.toArray(new JButton[0][]);
-				for(JButton[] k:temp) {
-					System.out.println(Arrays.toString(k));
-				}
 				slideButton[row][col].setText(Integer.toString(buttonName)); // Sätter ut namnet
 				if (buttonName == 16) { // Sista platsen blir tom och svart
 					setBlack(row, col);
 				}
 				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25)); // for the lulz
-				//slideButton[row][col].setPreferredSize(new Dimension(100, 100));  //Behövs inte?
+				// slideButton[row][col].setPreferredSize(new Dimension(100, 100)); //Behövs
+				// inte?
 				slideButton[row][col].addActionListener(this);
 				buttonName++; // ökar buttonName
 				gamePanel.add(slideButton[row][col]); // sätter ut knapparna i panelen
-				
+
 			}
 		}
 
@@ -96,7 +82,6 @@ public class Frame extends JFrame implements ActionListener {
 			}
 		}
 
-		
 		// Resten av koden för framen
 		setSize(520, 500);
 		setMinimumSize(new Dimension(520, 500));
@@ -104,7 +89,7 @@ public class Frame extends JFrame implements ActionListener {
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// shuffle(); // shuffla spelet i början av programmet
+		shuffle(); // shuffla spelet i början av programmet
 
 	}
 
@@ -113,15 +98,18 @@ public class Frame extends JFrame implements ActionListener {
 		slideButton[row][col].setBackground(Color.BLACK);
 	}
 
-	/*den här metoden kollar om grannarna till den tomma/svarta rutan går att flytta på.
-	Positionen för de olika knapparna är 0,0 ~ 0,3 1,0 ~ 1,3 2,0 ~ 2,3 3,0 ~ 3,3 och en tillåten 
-	position kan aldrig vara mer än en siffra ifrån. så koden blir: [r][c] ~ [r +-1][c +-1]
-	Man skulle även kunna använda row & col från button klassen och köra int r = x.getRow()
-	som man sedan använder för [r][c]. Man kan även söka på .getText().length() == 0 i if statements*/
+	/*
+	 * den här metoden kollar om grannarna till den tomma/svarta rutan går att
+	 * flytta på. Positionen för de olika knapparna är 0,0 ~ 0,3 1,0 ~ 1,3 2,0 ~ 2,3
+	 * 3,0 ~ 3,3 och en tillåten position kan aldrig vara mer än en siffra ifrån. så
+	 * koden blir: [r][c] ~ [r +-1][c +-1] Man skulle även kunna använda row & col
+	 * från button klassen och köra int r = x.getRow() som man sedan använder för
+	 * [r][c]. Man kan även söka på .getText().length() == 0 i if statements
+	 */
 	public void moveButton(int r, int c) {
-		Button temp = null; //kan använda JButton istället
+		Button temp = null; // kan använda JButton istället
 		if (c < 3 && slideButton[r][c + 1].getBackground() == Color.BLACK)
-			temp = (Button) slideButton[r][c + 1]; //skita i att casta Button om JButton används istället
+			temp = (Button) slideButton[r][c + 1]; // skita i att casta Button om JButton används istället
 		if (c > 0 && slideButton[r][c - 1].getBackground() == Color.BLACK)
 			temp = (Button) slideButton[r][c - 1];
 		if (r < 3 && slideButton[r + 1][c].getBackground() == Color.BLACK)
@@ -130,73 +118,23 @@ public class Frame extends JFrame implements ActionListener {
 			temp = (Button) slideButton[r - 1][c];
 		// om man trycker på en knapp som är för långt ifrån:
 		if (temp == null)
-			System.out.println("fel knapp"); //TODO ändra till något snyggare
-		else { 
+			System.out.println("fel knapp"); // TODO ändra till något snyggare
+		else {
 			// Här byter knapparna namn och bakgrund med varandra
 			temp.setText(slideButton[r][c].getText());
 			temp.setBackground(Color.ORANGE);
 			setBlack(r, c);
 		}
 	}
-/* Försöker shuffla genom att konvertera Array till list så att Collections.shuffle(Arrays.asList)
- * ska funka då nästan alla online tycker det är enklaste sättet men får det inte att funka än...
- */
-	/*public void shuffleButtons() {
-		JButton[][] temp = new Button[4][4];
-			List<JButton[]> temp2 = new ArrayList<>();
-			
-		for(JButton[] k: temp) {
-			List<JButton> list = (List <JButton>) Arrays.asList(k);
-			Collections.shuffle(list);
-			JButton[] tempArray = (JButton[]) list.toArray();
-			temp2.add(tempArray);
-		}
-			Collections.shuffle(temp2);
-			temp = (JButton[][]) temp2.toArray(new JButton[0][]);
-			for(JButton[] k:temp) {
-				System.out.println(Arrays.toString(k));
-			}
-		}*/
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == endGame)
 			System.exit(0);
 		else if (e.getSource() == newGame) {
+			shuffle();
 
-			boolean  [ ] used = new boolean [16];
-			
-			//  genererar nya nummer för att randomiza spelsplanens knappar och använder en boolean
-			// för att avbryta loopen när värdena blivit tillsatta, sedan nollställs texten för den svarta knappen.
-			
-			for (int r = 0; r < 4; r++) {
-				for (int c = 0; c < 4; c++) {
-			     	    int val = (int)(16*Math.random ( ));
-					
-				    while (used [val]) {
-				    	val = (int) (16 * Math.random ( ));
-				     }
-				     
-				     used [val] = true;
-				
-				    if (val !=0) {
-				         slideButton[r][c].setText( "" + val);
-				         slideButton[r][c].setBackground (Color.ORANGE);
-				    }
-				    else
-				         slideButton[r][c].setBackground (Color.BLACK);
-				    		if(slideButton[r][c].getBackground() == Color.black) {
-				    			slideButton[r][c].setText("");
-				    		}
-				      
-			  	}
-
-		}
-		
-
-
-			// shuffle();
-		} else {  // om man inte trycker på endGame eller newGame:
+		} else { // om man inte trycker på endGame eller newGame:
 			for (int r = 0; r < 4; r++) {
 				for (int c = 0; c < 4; c++) {
 					if (slideButton[r][c] == e.getSource()) {
@@ -208,6 +146,36 @@ public class Frame extends JFrame implements ActionListener {
 
 	}
 
+	private void shuffle() {
+		boolean[] used = new boolean[16];
+
+		// genererar nya nummer för att randomiza spelsplanens knappar och använder en
+		// boolean
+		// för att avbryta loopen när värdena blivit tillsatta, sedan nollställs texten
+		// för den svarta knappen.
+
+		for (int r = 0; r < 4; r++) {
+			for (int c = 0; c < 4; c++) {
+				int val = (int) (16 * Math.random());
+
+				while (used[val]) {
+					val = (int) (16 * Math.random());
+				}
+
+				used[val] = true;
+
+				if (val != 0) {
+					slideButton[r][c].setText("" + val);
+					slideButton[r][c].setBackground(Color.ORANGE);
+				} else
+					slideButton[r][c].setBackground(Color.BLACK);
+				if (slideButton[r][c].getBackground() == Color.black) {
+					slideButton[r][c].setText("");
+				}
+
+			}
+
+		}
 	}
 
-
+}
