@@ -192,7 +192,7 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	private void changeDifficulty() {
-		// ComboBox-variant av tidigare svårighetsgradsbyte
+		// ComboBox-variant av tidigare svårighetsgradsbyte, svårigheter att pusha upp..
 		if(changeDifficulty.getSelectedIndex() == 0) {
 				setRowsCols(4);
 			}
