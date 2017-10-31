@@ -193,6 +193,7 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	private void changeDifficulty() {
+		gamePanel.removeAll();
 			if(changeDifficulty.getSelectedIndex() == 0) {
 				setRowsCols(2);
 				gamePanel.setLayout(new GridLayout(ROWS, COLS));
@@ -211,6 +212,7 @@ public class Frame extends JFrame implements ActionListener {
 				createButtons();
 				shuffle();
 		}
+			gamePanel.repaint();
 		}
 	
 	
