@@ -6,11 +6,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class Frame extends JFrame implements ActionListener {
 
@@ -21,7 +21,14 @@ public class Frame extends JFrame implements ActionListener {
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
 	private final JLabel difficulty = new JLabel("Change difficulty:");
-	private final JTextField JTfDifficulty = new JTextField(2);
+
+	
+	// skapar en strängarray med namnen för svårighetsgraderna
+	private final String[] setDifficulty = {"Hard","Medium","Easy"};
+	
+	// skapar en combobox med svårighetsgraderna
+	private final JComboBox<String> changeDifficulty = new JComboBox<>(setDifficulty);
+
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
 	private final JButton cheat = new JButton("Cheat");
@@ -43,7 +50,7 @@ public class Frame extends JFrame implements ActionListener {
 		
 		// Panel för difficulty
 		textPanel.add(difficulty);
-		textPanel.add(JTfDifficulty); JTfDifficulty.addActionListener(this);
+		textPanel.add(changeDifficulty); changeDifficulty.addActionListener(this);
 		
 		// GridLayout för game panelen
 		gamePanel.setLayout(new GridLayout(ROWS, COLS));
@@ -99,7 +106,7 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	/*
-	 * den här metoden kollar om grannarna till den tomma/svarta rutan går att
+	 * den härr metoden kollar om grannarna till den tomma/svarta rutan går att
 	 * flytta på. Positionen för de olika knapparna är 0,0 ~ 0,3 1,0 ~ 1,3 2,0 ~ 2,3
 	 * 3,0 ~ 3,3 och en tillåten position kan aldrig vara mer än en siffra ifrån. så
 	 * koden blir: [r][c] ~ [r +-1][c +-1] Man skulle även kunna använda row & col
@@ -149,7 +156,6 @@ public class Frame extends JFrame implements ActionListener {
 			}
 
 		}
-
 		gamePanel.repaint();
 		checkWin();
 	}
@@ -178,10 +184,8 @@ public class Frame extends JFrame implements ActionListener {
 					slideButton[r][c].setText("" + val);
 					slideButton[r][c].setBackground(Color.ORANGE);
 				} else
-					slideButton[r][c].setBackground(Color.BLACK);
-				if (slideButton[r][c].getBackground() == Color.BLACK) {
-					slideButton[r][c].setText("");  // TODO Testa om if verkligen behövs här
-				}
+					setEmpty(r,c);
+				
 
 			}
 
@@ -189,22 +193,25 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	private void changeDifficulty() {
-		int r;
-		try {
-			r = Integer.parseInt(JTfDifficulty.getText());
-			setRowsCols(r);
+
+
+		// ComboBox-variant av tidigare svårighetsgradsbyte, ändrar rader och kolumner och skapar nya knappar etc
+
+		if(changeDifficulty.getSelectedIndex() == 0) {
+				setRowsCols(4);
+			}
+		else if(changeDifficulty.getSelectedIndex() == 1) {
+				setRowsCols(3);
+		}
+		else {
+				setRowsCols(2);
+		}	
 			gamePanel.setLayout(new GridLayout(ROWS, COLS));
 			createButtons();
 			shuffle();
-			
-		}catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Du måste ange en siffra");
-		
-		}catch(ArrayIndexOutOfBoundsException a) {
-			JOptionPane.showMessageDialog(null, "Svårighetsgrad mellan 2 och 4!");
-			}
-}
-	
+			gamePanel.repaint();
+		}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == endGame)
@@ -213,7 +220,7 @@ public class Frame extends JFrame implements ActionListener {
 			shuffle();
 		else if (e.getSource() == cheat)
 			cheatAllignement();
-		else if (e.getSource() == JTfDifficulty)
+		else if (e.getSource() == changeDifficulty)
 			changeDifficulty();
 		else { // om man inte trycker på någon av de andra knapparna
 			for (int r = 0; r < ROWS; r++)  // TODO Gör en metod för snyggare.
