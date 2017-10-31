@@ -192,7 +192,9 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	private void changeDifficulty() {
+
 		// ComboBox-variant av tidigare svårighetsgradsbyte, ändrar rader och kolumner och skapar nya knappar etc
+
 		if(changeDifficulty.getSelectedIndex() == 0) {
 				setRowsCols(4);
 			}
