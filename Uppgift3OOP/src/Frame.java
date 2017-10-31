@@ -27,7 +27,7 @@ public class Frame extends JFrame implements ActionListener {
 	private final JButton cheat = new JButton("Cheat");
 
 	JButton[][] slideButton = new JButton[ROWS][COLS];
-
+//hej
 	public Frame() {
 
 		// lägger ut 3 delpaneler, spelet, difficulty och val-knappar
