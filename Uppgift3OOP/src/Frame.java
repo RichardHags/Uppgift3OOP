@@ -21,10 +21,13 @@ public class Frame extends JFrame implements ActionListener {
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
 	private final JLabel difficulty = new JLabel("Change difficulty:");
+	
 	// skapar en strängarray med namnen för svårighetsgraderna
 	private final String[] setDifficulty = {"Hard","Medium","Easy"};
+	
 	// skapar en combobox med svårighetsgraderna
 	private final JComboBox<String> changeDifficulty = new JComboBox<>(setDifficulty);
+	
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
 	private final JButton cheat = new JButton("Cheat");
@@ -180,10 +183,8 @@ public class Frame extends JFrame implements ActionListener {
 					slideButton[r][c].setText("" + val);
 					slideButton[r][c].setBackground(Color.ORANGE);
 				} else
-					slideButton[r][c].setBackground(Color.BLACK);
-				if (slideButton[r][c].getBackground() == Color.BLACK) {
-					slideButton[r][c].setText("");  // TODO Testa om if verkligen behövs här
-				}
+					setEmpty(r,c);
+				
 
 			}
 
