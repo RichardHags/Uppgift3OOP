@@ -61,10 +61,10 @@ public class Frame extends JFrame implements ActionListener {
 		shuffle(); // shuffla spelet i början av programmet
 	}
 
-	public void createButtons() {	
+	public void createButtons() {
 		gamePanel.removeAll();
-		for (int row = 0; row < slideButton.length; row++) {
-			for (int col = 0; col < slideButton.length; col++) { 
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLS; col++) { 
 				slideButton[row][col] = new JButton(); 
 				slideButton[row][col] = new Button("", row, col);
 				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25)); 
@@ -72,7 +72,6 @@ public class Frame extends JFrame implements ActionListener {
 				gamePanel.add(slideButton[row][col]);
 			}
 		}
-		gamePanel.revalidate();
 		gamePanel.repaint();
 	}
 
@@ -150,7 +149,7 @@ public class Frame extends JFrame implements ActionListener {
 			}
 
 		}
-		gamePanel.revalidate();
+
 		gamePanel.repaint();
 		checkWin();
 	}
@@ -192,22 +191,20 @@ public class Frame extends JFrame implements ActionListener {
 	private void changeDifficulty() {
 		int r;
 		try {
-			gamePanel.removeAll();
 			r = Integer.parseInt(changeDifficulty.getText());
 			setRowsCols(r);
+			gamePanel.setLayout(new GridLayout(ROWS, COLS));
 			createButtons();
 			shuffle();
 			
-		} catch (NumberFormatException e) {
+		}catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Du måste ange en siffra");
-			createButtons();
-			shuffle();
-			// e.printStackTrace();
+		
+		}catch(ArrayIndexOutOfBoundsException a) {
+			JOptionPane.showMessageDialog(null, "Svårighetsgrad mellan 2 och 4!");
+			}
 		}
-			gamePanel.revalidate();
-			gamePanel.repaint();
-	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == endGame)
