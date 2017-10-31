@@ -84,9 +84,9 @@ public class Frame extends JFrame implements ActionListener {
 		int win = 0;
 		for (int i = 0; i < ROWS; i++)
 			for (int j = 0; j < COLS; j++) {
-				if (slideButton[i][j].getText().equals(x + "")) {
+				if (slideButton[i][j].getText().equals(x + "")) { //Samma som: if (slideButton[i][j].getText().equals(Integer.toString(x))) 
 					win++;
-					if (win == (ROWS * COLS) - 1)
+					if (win == (ROWS * COLS) - 1) 
 						JOptionPane.showMessageDialog(null, "You have won! \nClick New game to try again!");
 				}
 				x++;
