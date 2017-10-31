@@ -26,7 +26,7 @@ public class Frame extends JFrame implements ActionListener {
 	// skapar en strängarray med namnen för svårighetsgraderna
 	private final String[] setDifficulty = {"Hard","Medium","Easy"};
 	
-	// skapar en combobox med svÃ¥righetsgraderna
+	// skapar en combobox med svårighetsgraderna
 	private final JComboBox<String> changeDifficulty = new JComboBox<>(setDifficulty);
 
 	private final JButton newGame = new JButton("New game");
@@ -37,13 +37,13 @@ public class Frame extends JFrame implements ActionListener {
 
 	public Frame() {
 
-		// lÃ¤gger ut 3 delpaneler, spelet, difficulty och val-knappar
+		// lägger ut 3 delpaneler, spelet, difficulty och val-knappar
 		setLayout(new BorderLayout());
 		add("North", gamePanel);
 		add("Center", textPanel);
 		add("South", buttonPanel);
 
-		// Knapparna för new game, avsluta, cheat samt actionlisteners fÃ¶r dem
+		// Knapparna för new game, avsluta, cheat samt actionlisteners för dem
 		buttonPanel.add(newGame); newGame.addActionListener(this);
 		buttonPanel.add(cheat); cheat.addActionListener(this);
 		buttonPanel.add(endGame); endGame.addActionListener(this);
