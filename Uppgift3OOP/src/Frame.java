@@ -21,13 +21,14 @@ public class Frame extends JFrame implements ActionListener {
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
 	private final JLabel difficulty = new JLabel("Change difficulty:");
+
 	
 	// skapar en strängarray med namnen för svårighetsgraderna
 	private final String[] setDifficulty = {"Hard","Medium","Easy"};
 	
-	// skapar en combobox med svårighetsgraderna
+	// skapar en combobox med svÃ¥righetsgraderna
 	private final JComboBox<String> changeDifficulty = new JComboBox<>(setDifficulty);
-	
+
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
 	private final JButton cheat = new JButton("Cheat");
@@ -36,21 +37,20 @@ public class Frame extends JFrame implements ActionListener {
 
 	public Frame() {
 
-		// lägger ut 3 delpaneler, spelet, difficulty och val-knappar
+		// lÃ¤gger ut 3 delpaneler, spelet, difficulty och val-knappar
 		setLayout(new BorderLayout());
 		add("North", gamePanel);
 		add("Center", textPanel);
 		add("South", buttonPanel);
 
-		// Knapparna för new game, avsluta, cheat samt actionlisteners för dem
+		// Knapparna för new game, avsluta, cheat samt actionlisteners fÃ¶r dem
 		buttonPanel.add(newGame); newGame.addActionListener(this);
 		buttonPanel.add(cheat); cheat.addActionListener(this);
 		buttonPanel.add(endGame); endGame.addActionListener(this);
 		
 		// Panel för difficulty
 		textPanel.add(difficulty);
-		textPanel.add(changeDifficulty);
-		changeDifficulty.addActionListener(this);
+		textPanel.add(changeDifficulty); changeDifficulty.addActionListener(this);
 		
 		// GridLayout för game panelen
 		gamePanel.setLayout(new GridLayout(ROWS, COLS));
@@ -94,7 +94,7 @@ public class Frame extends JFrame implements ActionListener {
 				if (slideButton[i][j].getText().equals(x + "")) {
 					win++;
 					if (win == (ROWS * COLS) - 1)
-						JOptionPane.showMessageDialog(null, "You have won! \nClick New game to play again!");
+						JOptionPane.showMessageDialog(null, "You have won! \nClick New game to try again!");
 				}
 				x++;
 			}
@@ -106,13 +106,14 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	/*
-	 * den här metoden kollar om grannarna till den tomma/svarta rutan går att
+	 * den härr metoden kollar om grannarna till den tomma/svarta rutan går att
 	 * flytta på. Positionen för de olika knapparna är 0,0 ~ 0,3 1,0 ~ 1,3 2,0 ~ 2,3
 	 * 3,0 ~ 3,3 och en tillåten position kan aldrig vara mer än en siffra ifrån. så
 	 * koden blir: [r][c] ~ [r +-1][c +-1] Man skulle även kunna använda row & col
 	 * från button klassen och köra int r = x.getRow() som man sedan använder för
 	 * [r][c]. Man kan även söka på .getText().length() == 0 i if statements
 	 */
+
 	private void moveButton(int r, int c) {
 		Button temp = null; // kan använda JButton istället
 		if (c < COLS - 1 && slideButton[r][c + 1].getBackground() == Color.BLACK)
@@ -193,6 +194,7 @@ public class Frame extends JFrame implements ActionListener {
 
 	private void changeDifficulty() {
 
+
 		// ComboBox-variant av tidigare svårighetsgradsbyte, ändrar rader och kolumner och skapar nya knappar etc
 
 		if(changeDifficulty.getSelectedIndex() == 0) {
@@ -209,8 +211,7 @@ public class Frame extends JFrame implements ActionListener {
 			shuffle();
 			gamePanel.repaint();
 		}
-	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == endGame)
