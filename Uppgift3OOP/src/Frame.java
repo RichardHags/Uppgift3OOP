@@ -11,19 +11,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class Frame extends JFrame implements ActionListener {
 
-	private int ROWS = 2;
-	private int COLS = 2;
+	private int ROWS = 4;
+	private int COLS = 4;
 
 	private final JPanel gamePanel = new JPanel();
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
 	private final JLabel difficulty = new JLabel("Change difficulty:");
 	// skapar en strängarray med namnen för svårighetsgraderna
-	private final String[] setDifficulty = {"Easy","Medium","Hard"};
+	private final String[] setDifficulty = {"Hard","Medium","Easy"};
 	// skapar en combobox med svårighetsgraderna
 	private final JComboBox<String> changeDifficulty = new JComboBox<>(setDifficulty);
 	private final JButton newGame = new JButton("New game");
@@ -153,7 +152,6 @@ public class Frame extends JFrame implements ActionListener {
 			}
 
 		}
-
 		gamePanel.repaint();
 		checkWin();
 	}
@@ -193,25 +191,19 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	private void changeDifficulty() {
-		gamePanel.removeAll();
-			if(changeDifficulty.getSelectedIndex() == 0) {
-				setRowsCols(2);
-				gamePanel.setLayout(new GridLayout(ROWS, COLS));
-				createButtons();
-				shuffle();
+		// ComboBox-variant av tidigare svårighetsgradsbyte
+		if(changeDifficulty.getSelectedIndex() == 0) {
+				setRowsCols(4);
 			}
 		else if(changeDifficulty.getSelectedIndex() == 1) {
 				setRowsCols(3);
-				gamePanel.setLayout(new GridLayout(ROWS, COLS));
-				createButtons();
-				shuffle();
 		}
-		else if(changeDifficulty.getSelectedIndex() == 2) {
-				setRowsCols(4);
-				gamePanel.setLayout(new GridLayout(ROWS, COLS));
-				createButtons();
-				shuffle();
-		}
+		else {
+				setRowsCols(2);
+		}	
+			gamePanel.setLayout(new GridLayout(ROWS, COLS));
+			createButtons();
+			shuffle();
 			gamePanel.repaint();
 		}
 	
