@@ -21,7 +21,7 @@ public class Frame extends JFrame implements ActionListener {
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
 	private final JLabel difficulty = new JLabel("Change difficulty:");
-	private final JTextField changeDifficulty = new JTextField(2);
+	private final JTextField JTfDifficulty = new JTextField(2);
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
 	private final JButton cheat = new JButton("Cheat");
@@ -43,8 +43,7 @@ public class Frame extends JFrame implements ActionListener {
 		
 		// Panel för difficulty
 		textPanel.add(difficulty);
-		textPanel.add(changeDifficulty);
-		changeDifficulty.addActionListener(this);
+		textPanel.add(JTfDifficulty); JTfDifficulty.addActionListener(this);
 		
 		// GridLayout för game panelen
 		gamePanel.setLayout(new GridLayout(ROWS, COLS));
@@ -85,7 +84,7 @@ public class Frame extends JFrame implements ActionListener {
 				if (slideButton[i][j].getText().equals(x + "")) {
 					win++;
 					if (win == (ROWS * COLS) - 1)
-						JOptionPane.showMessageDialog(null, "You have won! \nClick New game try again!");
+						JOptionPane.showMessageDialog(null, "You have won! \nClick New game to try again!");
 				}
 				x++;
 			}
@@ -105,15 +104,15 @@ public class Frame extends JFrame implements ActionListener {
 	 * [r][c]. Man kan även söka på .getText().length() == 0 i if statements
 	 */
 	public void moveButton(int r, int c) {
-		Button temp = null; // kan använda JButton istället
+		JButton temp = null; // kan använda JButton istället
 		if (c < COLS - 1 && slideButton[r][c + 1].getBackground() == Color.BLACK)
-			temp = (Button) slideButton[r][c + 1]; // skita i att casta Button om JButton används istället
+			temp = slideButton[r][c + 1]; // skita i att casta Button om JButton används istället
 		if (c > 0 && slideButton[r][c - 1].getBackground() == Color.BLACK)
-			temp = (Button) slideButton[r][c - 1];
+			temp = slideButton[r][c - 1];
 		if (r < ROWS - 1 && slideButton[r + 1][c].getBackground() == Color.BLACK)
-			temp = (Button) slideButton[r + 1][c];
+			temp = slideButton[r + 1][c];
 		if (r > 0 && slideButton[r - 1][c].getBackground() == Color.BLACK)
-			temp = (Button) slideButton[r - 1][c];
+			temp = slideButton[r - 1][c];
 		// om man trycker på en knapp som är för långt ifrån:
 		if (temp == null)
 			System.out.println("Ogiltig flytt!"); // TODO ändra till något snyggare
@@ -186,15 +185,32 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	public void changeDifficulty() {
-		int r;
+		int rowsCols;
 		try {
-			r = Integer.parseInt(changeDifficulty.getText());
-			setRowsCols(r);
+			rowsCols = Integer.parseInt(JTfDifficulty.getText());
 			gamePanel.removeAll();
+			setRowsCols(rowsCols);
+			
+			int buttonName = 0;
+			for (int r = 0; r < ROWS; r++) {
+				for (int c = 0; c < COLS; c++) {
+					slideButton[r][c] = new JButton();
+					//slideButton[r][c] = new Button("", r, c);
+					slideButton[r][c].setText(Integer.toString(buttonName + 1));
+					slideButton[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
+					slideButton[r][c].setBackground(Color.ORANGE);
+					slideButton[r][c].addActionListener(this);
+					buttonName++;
+					gamePanel.add(slideButton[r][c]);
+					if (buttonName == (ROWS * COLS)) {
+						setEmpty(r, c);
+					}
+				}
+
+			}
+			shuffle();
 			gamePanel.revalidate();
 			gamePanel.repaint();
-			createButtons();
-			shuffle();
 			
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Du måste ange en siffra");
@@ -211,7 +227,7 @@ public class Frame extends JFrame implements ActionListener {
 			shuffle();
 		else if (e.getSource() == cheat)
 			cheatAllignement();
-		else if (e.getSource() == changeDifficulty)
+		else if (e.getSource() == JTfDifficulty)
 			changeDifficulty();
 		else { // om man inte trycker på någon av de andra knapparna
 			for (int r = 0; r < ROWS; r++)  // TODO Gör en metod för snyggare.
