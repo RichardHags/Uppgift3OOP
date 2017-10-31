@@ -51,11 +51,11 @@ public class Frame extends JFrame implements ActionListener {
 		
 		// GridLayout för game panelen
 		gamePanel.setLayout(new GridLayout(ROWS, COLS));
-		gamePanel.setPreferredSize(new Dimension(400, 400));
+		gamePanel.setPreferredSize(new Dimension(400, 400));  //DEN HÄR KANSKE STÖKAR TILL DET FÖR CHANGEDIFFICULTY
 
 		// Resten av koden för framen
-		setSize(520, 510);
-		setMinimumSize(new Dimension(520, 510));
+		setSize(520, 510); //DEN HÄR KANSKE STÖKAR TILL DET FÖR CHANGEDIFFICULTY
+		setMinimumSize(new Dimension(520, 510)); //DEN HÄR KANSKE STÖKAR TILL DET FÖR CHANGEDIFFICULTY
 		setLocation(700, 300);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
