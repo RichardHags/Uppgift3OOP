@@ -37,12 +37,9 @@ public class Frame extends JFrame implements ActionListener {
 		add("South", buttonPanel);
 
 		// Knapparna för new game, avsluta, cheat samt actionlisteners för dem
-		buttonPanel.add(newGame);
-		newGame.addActionListener(this);
-		buttonPanel.add(cheat);
-		cheat.addActionListener(this);
-		buttonPanel.add(endGame);
-		endGame.addActionListener(this);
+		buttonPanel.add(newGame); newGame.addActionListener(this);
+		buttonPanel.add(cheat); cheat.addActionListener(this);
+		buttonPanel.add(endGame); endGame.addActionListener(this);
 		
 		// Panel för difficulty
 		textPanel.add(difficulty);
@@ -88,7 +85,7 @@ public class Frame extends JFrame implements ActionListener {
 				if (slideButton[i][j].getText().equals(x + "")) {
 					win++;
 					if (win == (ROWS * COLS) - 1)
-						JOptionPane.showMessageDialog(null, "You have won!");
+						JOptionPane.showMessageDialog(null, "You have won! \nClick New game try again!");
 				}
 				x++;
 			}
@@ -180,7 +177,7 @@ public class Frame extends JFrame implements ActionListener {
 				} else
 					slideButton[r][c].setBackground(Color.BLACK);
 				if (slideButton[r][c].getBackground() == Color.BLACK) {
-					slideButton[r][c].setText("");
+					slideButton[r][c].setText("");  // TODO Testa om if verkligen behövs här
 				}
 
 			}
@@ -200,7 +197,7 @@ public class Frame extends JFrame implements ActionListener {
 			shuffle();
 			
 		} catch (NumberFormatException e) {
-			System.out.println("Du måste skriva en siffra \nmellan 2-4");
+			JOptionPane.showMessageDialog(null, "Du måste ange en siffra");
 			// e.printStackTrace();
 		}
 
@@ -217,10 +214,10 @@ public class Frame extends JFrame implements ActionListener {
 		else if (e.getSource() == changeDifficulty)
 			changeDifficulty();
 		else { // om man inte trycker på någon av de andra knapparna
-			for (int r = 0; r < ROWS; r++)
+			for (int r = 0; r < ROWS; r++)  // TODO Gör en metod för snyggare.
 				for (int c = 0; c < COLS; c++) {
 					if (slideButton[r][c] == e.getSource())
-						moveButton(r, c);
+						moveButton(r, c);  
 				}
 		}
 	}
