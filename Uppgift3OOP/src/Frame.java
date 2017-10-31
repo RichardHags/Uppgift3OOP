@@ -47,36 +47,39 @@ public class Frame extends JFrame implements ActionListener {
 		
 		// GridLayout för game panelen
 		gamePanel.setLayout(new GridLayout(ROWS, COLS));
-		gamePanel.setPreferredSize(new Dimension(400, 400));  //DEN HÄR KANSKE STÖKAR TILL DET FÖR CHANGEDIFFICULTY
+		gamePanel.setPreferredSize(new Dimension(400, 400));
 
 		// Resten av koden för framen
-		setSize(520, 510); //DEN HÄR KANSKE STÖKAR TILL DET FÖR CHANGEDIFFICULTY
-		setMinimumSize(new Dimension(520, 510)); //DEN HÄR KANSKE STÖKAR TILL DET FÖR CHANGEDIFFICULTY
+		setSize(520, 510);
+		setMinimumSize(new Dimension(520, 510));
 		setLocation(700, 300);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
 		createButtons();
 		shuffle(); // shuffla spelet i början av programmet
 	}
 
-	private void createButtons() {
-		for (int row = 0; row < slideButton.length; row++) 
-			for (int col = 0; col < slideButton.length; col++) { 
+	public void createButtons() {
+		gamePanel.removeAll();
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLS; col++) { 
 				slideButton[row][col] = new JButton(); 
 				slideButton[row][col] = new Button("", row, col);
 				slideButton[row][col].setFont(new Font("Comic Sans MS", Font.PLAIN, 25)); 
 				slideButton[row][col].addActionListener(this);
-				gamePanel.add(slideButton[row][col]); 
+				gamePanel.add(slideButton[row][col]);
 			}
+		}
+		gamePanel.repaint();
 	}
 
-	public void setRowsCols(int rc) {
+	private void setRowsCols(int rc) {
 		ROWS = rc;
 		COLS = rc;
 	}
 
-	public void checkWin() {
+	private void checkWin() {
 		int x = 1;
 		int win = 0;
 		for (int i = 0; i < ROWS; i++)
@@ -90,7 +93,7 @@ public class Frame extends JFrame implements ActionListener {
 			}
 	}
 
-	public void setEmpty(int row, int col) {
+	private void setEmpty(int row, int col) {
 		slideButton[row][col].setText("");
 		slideButton[row][col].setBackground(Color.BLACK);
 	}
@@ -103,19 +106,20 @@ public class Frame extends JFrame implements ActionListener {
 	 * från button klassen och köra int r = x.getRow() som man sedan använder för
 	 * [r][c]. Man kan även söka på .getText().length() == 0 i if statements
 	 */
-	public void moveButton(int r, int c) {
-		JButton temp = null; // kan använda JButton istället
+
+	private void moveButton(int r, int c) {
+		Button temp = null; // kan använda JButton istället
 		if (c < COLS - 1 && slideButton[r][c + 1].getBackground() == Color.BLACK)
-			temp = slideButton[r][c + 1]; // skita i att casta Button om JButton används istället
+			temp = (Button) slideButton[r][c + 1]; // skita i att casta Button om JButton används istället
 		if (c > 0 && slideButton[r][c - 1].getBackground() == Color.BLACK)
-			temp = slideButton[r][c - 1];
+			temp = (Button) slideButton[r][c - 1];
 		if (r < ROWS - 1 && slideButton[r + 1][c].getBackground() == Color.BLACK)
-			temp = slideButton[r + 1][c];
+			temp = (Button) slideButton[r + 1][c];
 		if (r > 0 && slideButton[r - 1][c].getBackground() == Color.BLACK)
-			temp = slideButton[r - 1][c];
+			temp = (Button) slideButton[r - 1][c];
 		// om man trycker på en knapp som är för långt ifrån:
 		if (temp == null)
-			System.out.println("Ogiltig flytt!"); // TODO ändra till något snyggare
+			System.out.println("Ogiltig flytt!");
 		else {
 			// Här byter knapparna namn och bakgrund med varandra
 			temp.setText(slideButton[r][c].getText());
@@ -145,9 +149,9 @@ public class Frame extends JFrame implements ActionListener {
 			}
 
 		}
-		checkWin();
-		gamePanel.revalidate();
+
 		gamePanel.repaint();
+		checkWin();
 	}
 
 	private void shuffle() {
@@ -184,41 +188,23 @@ public class Frame extends JFrame implements ActionListener {
 		}
 	}
 
-	public void changeDifficulty() {
-		int rowsCols;
+	private void changeDifficulty() {
+		int r;
 		try {
-			rowsCols = Integer.parseInt(JTfDifficulty.getText());
-			gamePanel.removeAll();
-			setRowsCols(rowsCols);
-			
-			int buttonName = 0;
-			for (int r = 0; r < ROWS; r++) {
-				for (int c = 0; c < COLS; c++) {
-					slideButton[r][c] = new JButton();
-					//slideButton[r][c] = new Button("", r, c);
-					slideButton[r][c].setText(Integer.toString(buttonName + 1));
-					slideButton[r][c].setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-					slideButton[r][c].setBackground(Color.ORANGE);
-					slideButton[r][c].addActionListener(this);
-					buttonName++;
-					gamePanel.add(slideButton[r][c]);
-					if (buttonName == (ROWS * COLS)) {
-						setEmpty(r, c);
-					}
-				}
-
-			}
+			r = Integer.parseInt(JTfDifficulty.getText());
+			setRowsCols(r);
+			gamePanel.setLayout(new GridLayout(ROWS, COLS));
+			createButtons();
 			shuffle();
-			gamePanel.revalidate();
-			gamePanel.repaint();
 			
-		} catch (NumberFormatException e) {
+		}catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Du måste ange en siffra");
-			// e.printStackTrace();
-		}
-
-	}
-
+		
+		}catch(ArrayIndexOutOfBoundsException a) {
+			JOptionPane.showMessageDialog(null, "Svårighetsgrad mellan 2 och 4!");
+			}
+}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == endGame)
