@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,20 +15,23 @@ import javax.swing.JTextField;
 
 public class Frame extends JFrame implements ActionListener {
 
-	private int ROWS = 4;
-	private int COLS = 4;
+	private int ROWS = 2;
+	private int COLS = 2;
 
 	private final JPanel gamePanel = new JPanel();
 	private final JPanel buttonPanel = new JPanel();
 	private final JPanel textPanel = new JPanel();
 	private final JLabel difficulty = new JLabel("Change difficulty:");
-	private final JTextField changeDifficulty = new JTextField(2);
+	// skapar en strängarray med namnen för svårighetsgraderna
+	private final String[] setDifficulty = {"Easy","Medium","Hard"};
+	// skapar en combobox med svårighetsgraderna
+	private final JComboBox<String> changeDifficulty = new JComboBox<>(setDifficulty);
 	private final JButton newGame = new JButton("New game");
 	private final JButton endGame = new JButton("End game");
 	private final JButton cheat = new JButton("Cheat");
 
 	JButton[][] slideButton = new JButton[ROWS][COLS];
-//hej
+
 	public Frame() {
 
 		// lägger ut 3 delpaneler, spelet, difficulty och val-knappar
@@ -189,21 +193,26 @@ public class Frame extends JFrame implements ActionListener {
 	}
 
 	private void changeDifficulty() {
-		int r;
-		try {
-			r = Integer.parseInt(changeDifficulty.getText());
-			setRowsCols(r);
-			gamePanel.setLayout(new GridLayout(ROWS, COLS));
-			createButtons();
-			shuffle();
-			
-		}catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Du måste ange en siffra");
-		
-		}catch(ArrayIndexOutOfBoundsException a) {
-			JOptionPane.showMessageDialog(null, "Svårighetsgrad mellan 2 och 4!");
+			if(changeDifficulty.getSelectedIndex() == 0) {
+				setRowsCols(2);
+				gamePanel.setLayout(new GridLayout(ROWS, COLS));
+				createButtons();
+				shuffle();
 			}
+		else if(changeDifficulty.getSelectedIndex() == 1) {
+				setRowsCols(3);
+				gamePanel.setLayout(new GridLayout(ROWS, COLS));
+				createButtons();
+				shuffle();
 		}
+		else if(changeDifficulty.getSelectedIndex() == 2) {
+				setRowsCols(4);
+				gamePanel.setLayout(new GridLayout(ROWS, COLS));
+				createButtons();
+				shuffle();
+		}
+		}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
